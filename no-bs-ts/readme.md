@@ -3,7 +3,7 @@
 ***      
 ### Table of Contents:
 
-1. [] - [Intro]()     
+1. [x] - [Intro](ts-basics/basics.ts)     
 2. [] - [Functions]()     
 3. [] - [Functions w/ Functions]()     
 4. [] - [Function Overloading]()     
