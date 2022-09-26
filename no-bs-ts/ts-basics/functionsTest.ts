@@ -5,4 +5,4 @@ import addNumbers, {addStrings, getName} from "./functions";
 
 // console.log(addStrings("Hey"))
 
-console.log(getName({first: "Jack", last:"Harrington"}))
+console.log(getName())

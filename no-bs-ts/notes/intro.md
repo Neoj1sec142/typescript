@@ -40,6 +40,12 @@ function addNumbers(a: number,b: number): number{
     * b: number - is the same as param a 
     * func(): number {} - the : number after the params is declaring the return type will be a number
 
+- **String Interpolation**: 
+    ![String interpolation](./assets/jsfunc1.png)        
+    - This function concats the first and last name into a string. We can compile this TS code into JS with npx tsc <filename>.ts and we will see that we get some checking to see if the user object passed in will be null and if so implements the first and last as default values.
+        * The user? is to see if the user is defined or null
+        * the ?? is the teranary giving first a default option if user.first or user.last is null
+
 ***     
 - *Typescript only enforces type declaration at compile time not at run time*
     * 
