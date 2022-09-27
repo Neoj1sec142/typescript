@@ -48,4 +48,9 @@ function addNumbers(a: number,b: number): number{
 
 ***     
 - *Typescript only enforces type declaration at compile time not at run time*
-    * 
+***     
+### Importing JSON:
+- Import JSON file as usual
+- In TS Config:
+    *  "resolveJsonModule": true,   
+***   
