@@ -15,7 +15,7 @@
         -[JSON Upload](./ts-basics/houses.json)        
 6. [x] - [Optionals in TS](./ts-basics/optional.ts)     
 7. [x] - [Tuples in TS](./ts-basics/tuple.ts)     
-8. [] - [Generics in TS]()     
+8. [x] - [Generics in TS](./ts-basics/generics.ts)     
 9. [] - [Challange #2]()     
 10. [] - [Generics w/ keyof]()     
 11. [] - [TS Utility Types]()     
