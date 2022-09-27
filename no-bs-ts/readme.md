@@ -2,10 +2,13 @@
 [playlist-link](https://www.youtube.com/playlist?list=PLNqp92_EXZBJYFrpEzdO2EapvU0GOJ09n)        
 ***      
 ### Table of Contents:
-
+* [NOTES(v1)](./notes/intro.md)       
 1. [x] - [Intro](ts-basics/basics.ts)     
-2. [] - [Functions]()     
-3. [] - [Functions w/ Functions]()     
+2. [x] - [JSFunctions-Tests](./ts-basics/jsfunctest.js)     
+        -[JS Func Compile](./ts-basics/functions.js)        
+        -[TS Functions](./ts-basics/functions.ts)        
+        -[TS Function-Tests](./ts-basics/functionsTest.ts)        
+3. [x] - [Functions w/ Functions](./ts-basics/funcs-and-funcs.ts)     
 4. [] - [Function Overloading]()     
 5. [] - [Challange #1]()     
 6. [] - [Optionals in TS]()     
