@@ -27,3 +27,22 @@
 * [] - [23]     
 * [] - [24]     
 * [] - [25]     
+
+***     
+# React Typescript 1st Project:
+- global warming and eco dashboard
+- features:
+    * iceland water levels
+    * oceanic water levels
+    * temp graph
+    * multiple api points
+    * ...
+- tech used:
+    * React
+    * Typescript
+    * Python
+    * Django
+    * PostgreSQL
+    * Bootstrap
+    * CSS
+    * HTML5
