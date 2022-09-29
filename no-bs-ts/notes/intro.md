@@ -54,3 +54,7 @@ function addNumbers(a: number,b: number): number{
 - In TS Config:
     *  "resolveJsonModule": true,   
 ***   
+
+
+Poke API:
+https://pokeapi.co/api/v2/pokemon?limit#10
