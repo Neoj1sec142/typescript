@@ -26,7 +26,8 @@
 16. [x] - [Mapped Types](./ts-basics/mapped.ts)     
 17. [x] - [ReadOnly and Static](./ts-basics/readonly2.ts)     
 18. [x] - [Abstract Classes](./ts-basics/abstract.ts)     
-19. [x] - [Mixins](./ts-basics/mixins.ts)     
+19. [x] - [Mixins](./ts-basics/mixins.ts
+)     
 20. [] - [Challange #3]()     
 21. [::] - [Conditional Types]()     
 22. [] - [Utility Types]()     
