@@ -33,7 +33,7 @@
 22. [] - [Utility Types]()     
 #### Part 2: react-ts
 23. [x] - [React/TS Setup and Properties](./react-ts/lesson23/lesson/)     
-24. [] - [Typescript & React Hooks]()     
+24. [x] - [Typescript & React Hooks](./react-ts/lesson23/lesson/)     
 25. [] - [Typescript & React Adv Properties]()     
 26. [] - [TS/React Custom Hooks]()     
 27. [] - [TS/React Generic Components]()     

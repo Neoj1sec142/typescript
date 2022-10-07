@@ -72,14 +72,17 @@ function App() {
   }, [])
 
   const newTodoRef = useRef<HTMLInputElement>(null)
+  
   const onAddTodo = useCallback(() => {
     if(newTodoRef.current){
       dispatch({
-      type: "ADD",
-      text: newTodoRef.current.value
-    })
+        type: "ADD",
+        text: newTodoRef.current.value
+      })
+      newTodoRef.current.value = "";
     }
   }, [dispatch])
+  
   return (
     <div>
       <Heading title="Introduction"/>
