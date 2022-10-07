@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect, useReducer, useRef, useState} from 'react'
 import './App.css';
 
 const Heading = ({title}: {title: string}) => {
@@ -23,12 +23,63 @@ const List:React.FunctionComponent<{
     ))}
   </ul>)
 }
+interface Payload {
+  text: string;
+}
 
+interface Todo {
+  id: number;
+  done: boolean;
+  text: string;
+}
 
+type ActionType = 
+  | { type: "ADD", text: string }
+  | { type: "DELETE", id: number }
 function App() {
   const onListClick = useCallback((item: string) => {
     alert(item)
   }, []);
+
+  
+
+  const [payload, setPayload] = useState<Payload | null>(null)
+
+  useEffect(() => {
+    fetch('/data.json')
+    .then(res => res.json())
+    .then(data => {setPayload(data)})
+    .catch(e => console.log(e))
+  },[])
+
+  const [todos, dispatch] = useReducer(
+    (state: Todo[], action: ActionType) => {
+      switch(action.type){
+        case "ADD":
+          return [
+            ...state,
+            {
+              id: state.length,
+              text: action.text,
+              done: false,
+            }
+          ]
+        case "DELETE":
+          return state.filter(({ id }) => id !== action.id)
+        default: 
+          throw new Error();
+      }
+  }, [])
+
+  const newTodoRef = useRef<HTMLInputElement>(null)
+  const onAddTodo = useCallback(() => {
+    if(newTodoRef.current){
+      dispatch({
+      type: "ADD",
+      text: newTodoRef.current.value
+    })
+    }
+  }, [dispatch])
   return (
     <div>
       <Heading title="Introduction"/>
@@ -36,6 +87,20 @@ function App() {
         Hello there
       </Box>
       <List items={["one", "two", "three"]} onClick={onListClick}/>
+      <Box>{JSON.stringify(payload)}</Box>
+      <Heading title="Todos"/>
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          {todo.text}
+          <button onClick={() => dispatch({
+            type: "DELETE",
+            id: todo.id,
+          })}>Remove</button>
+        </div>))}
+        <div>
+          <input type="text" ref={newTodoRef}/>
+          <button onClick={onAddTodo}>AddTodo</button>
+        </div>
     </div>
   );
 }
