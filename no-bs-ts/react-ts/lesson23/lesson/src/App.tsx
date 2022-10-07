@@ -36,6 +36,33 @@ interface Todo {
 type ActionType = 
   | { type: "ADD", text: string }
   | { type: "DELETE", id: number }
+
+
+// To avoid the React.Dispatch<React.SetStateAction<number>> line 
+// follow the next 3 lines (const, type, type) then use the types
+// in the generic spot of the react.functioncomponent
+const useNumber = (initialValue: number) => useState<number>(initialValue)
+type UseNumberValue = ReturnType<typeof useNumber>[0]
+type UseNumberSetValue = ReturnType<typeof useNumber>[1]
+
+// const Incrementor:React.FunctionComponent<{
+//   value: number,
+//   setValue: React.Dispatch<React.SetStateAction<number>>,
+// }> = ({ value, setValue }) => (
+//   <button onClick={() => setValue(value + 1)}>
+//     Add - {value}
+//   </button>
+// )
+
+const Incrementor:React.FunctionComponent<{
+  value: UseNumberValue,
+  setValue: UseNumberSetValue,
+}> = ({ value, setValue }) => (
+  <button onClick={() => setValue(value + 1)}>
+    Add - {value}
+  </button>
+)
+
 function App() {
   const onListClick = useCallback((item: string) => {
     alert(item)
@@ -83,6 +110,8 @@ function App() {
     }
   }, [dispatch])
   
+  const [value, setValue] = useNumber(0)
+
   return (
     <div>
       <Heading title="Introduction"/>
@@ -91,6 +120,7 @@ function App() {
       </Box>
       <List items={["one", "two", "three"]} onClick={onListClick}/>
       <Box>{JSON.stringify(payload)}</Box>
+      <Incrementor value={value} setValue={setValue}/>
       <Heading title="Todos"/>
       {todos.map((todo) => (
         <div key={todo.id}>
