@@ -12,6 +12,20 @@ const Box = ({children}: {children: React.ReactNode}) => (
   }}>{children}</div>
 )
 
+const Button: React.FunctionComponent<
+  React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > & {
+    title?: string;
+  }
+> = ({title, style, children, ...rest}) => <button {...rest} style={{
+  ...style,
+  backgroundColor: 'red', 
+  color: 'white', 
+  fontSize: 'xx-large'
+}}>{title ?? children}</button>;
+
 const List:React.FunctionComponent<{
   items: string[];
   onClick?: (item: string) => void
@@ -58,10 +72,11 @@ const Incrementor:React.FunctionComponent<{
   value: UseNumberValue,
   setValue: UseNumberSetValue,
 }> = ({ value, setValue }) => (
-  <button onClick={() => setValue(value + 1)}>
-    Add - {value}
-  </button>
+  <Button onClick={() => setValue(value + 1)} title={`Add - ${value}`}/>
 )
+
+
+
 
 function App() {
   const onListClick = useCallback((item: string) => {
@@ -132,7 +147,7 @@ function App() {
         </div>))}
         <div>
           <input type="text" ref={newTodoRef}/>
-          <button onClick={onAddTodo}>AddTodo</button>
+          <Button onClick={onAddTodo}>AddTodo</Button>
         </div>
     </div>
   );
