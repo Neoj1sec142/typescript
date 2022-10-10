@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useReducer, useRef, useState} from 'react'
 import './App.css';
-
+import { useTodos } from './useTodos';
 const Heading = ({title}: {title: string}) => {
   return <h2>{title}</h2>
 }
@@ -26,20 +26,21 @@ const Button: React.FunctionComponent<
   fontSize: 'xx-large'
 }}>{title ?? children}</button>;
 
-const List:React.FunctionComponent<{
-  items: string[];
-  onClick?: (item: string) => void
-}> = ({ items, onClick }) => {
-  return(
-  <ul>
-    {items.map((item, i) => (
-      <li key={i} onClick={() => onClick?.(item)}>{item}</li>
-    ))}
-  </ul>)
-}
-interface Payload {
-  text: string;
-}
+// const List:React.FunctionComponent<{
+//   items: string[];
+//   onClick?: (item: string) => void
+// }> = ({ items, onClick }) => {
+//   return(
+//   <ul>
+//     {items.map((item, i) => (
+//       <li key={i} onClick={() => onClick?.(item)}>{item}</li>
+//     ))}
+//   </ul>)
+// }
+
+// interface Payload {
+//   text: string;
+// }
 
 interface Todo {
   id: number;
@@ -55,9 +56,10 @@ type ActionType =
 // To avoid the React.Dispatch<React.SetStateAction<number>> line 
 // follow the next 3 lines (const, type, type) then use the types
 // in the generic spot of the react.functioncomponent
-const useNumber = (initialValue: number) => useState<number>(initialValue)
-type UseNumberValue = ReturnType<typeof useNumber>[0]
-type UseNumberSetValue = ReturnType<typeof useNumber>[1]
+// const useNumber = (initialValue: number) => useState<number>(initialValue)
+
+// type UseNumberValue = ReturnType<typeof useNumber>[0]
+// type UseNumberSetValue = ReturnType<typeof useNumber>[1]
 
 // const Incrementor:React.FunctionComponent<{
 //   value: number,
@@ -68,64 +70,63 @@ type UseNumberSetValue = ReturnType<typeof useNumber>[1]
 //   </button>
 // )
 
-const Incrementor:React.FunctionComponent<{
-  value: UseNumberValue,
-  setValue: UseNumberSetValue,
-}> = ({ value, setValue }) => (
-  <Button onClick={() => setValue(value + 1)} title={`Add - ${value}`}/>
-)
+// const Incrementor:React.FunctionComponent<{
+//   value: UseNumberValue,
+//   setValue: UseNumberSetValue,
+// }> = ({ value, setValue }) => (
+//   <Button onClick={() => setValue(value + 1)} title={`Add - ${value}`}/>
+// )
 
 
 
 
 function App() {
-  const onListClick = useCallback((item: string) => {
-    alert(item)
-  }, []);
+  // const onListClick = useCallback((item: string) => {
+  //   alert(item)
+  // }, []);
 
-  
+  const {todos, addTodo, removeTodo} = useTodos([
+    {id: 0, text: "hey there", done: false}
+  ])
 
-  const [payload, setPayload] = useState<Payload | null>(null)
+  // const [payload, setPayload] = useState<Payload | null>(null)
 
-  useEffect(() => {
-    fetch('/data.json')
-    .then(res => res.json())
-    .then(data => {setPayload(data)})
-    .catch(e => console.log(e))
-  },[])
+  // useEffect(() => {
+  //   fetch('/data.json')
+  //   .then(res => res.json())
+  //   .then(data => {setPayload(data)})
+  //   .catch(e => console.log(e))
+  // },[])
 
-  const [todos, dispatch] = useReducer(
-    (state: Todo[], action: ActionType) => {
-      switch(action.type){
-        case "ADD":
-          return [
-            ...state,
-            {
-              id: state.length,
-              text: action.text,
-              done: false,
-            }
-          ]
-        case "DELETE":
-          return state.filter(({ id }) => id !== action.id)
-        default: 
-          throw new Error();
-      }
-  }, [])
+  // const [todos, dispatch] = useReducer(
+  //   (state: Todo[], action: ActionType) => {
+  //     switch(action.type){
+  //       case "ADD":
+  //         return [
+  //           ...state,
+  //           {
+  //             id: state.length,
+  //             text: action.text,
+  //             done: false,
+  //           }
+  //         ]
+  //       case "DELETE":
+  //         return state.filter(({ id }) => id !== action.id)
+  //       default: 
+  //         throw new Error();
+  //     }
+  // }, [])
 
   const newTodoRef = useRef<HTMLInputElement>(null)
   
   const onAddTodo = useCallback(() => {
     if(newTodoRef.current){
-      dispatch({
-        type: "ADD",
-        text: newTodoRef.current.value
-      })
-      newTodoRef.current.value = "";
-    }
-  }, [dispatch])
+        addTodo(newTodoRef.current.value)
+        newTodoRef.current.value = "";
+      }
+  }, [addTodo])
   
-  const [value, setValue] = useNumber(0)
+  // const [value, setValue] = useNumber(0)
 
   return (
     <div>
@@ -133,17 +134,14 @@ function App() {
       <Box>
         Hello there
       </Box>
-      <List items={["one", "two", "three"]} onClick={onListClick}/>
-      <Box>{JSON.stringify(payload)}</Box>
-      <Incrementor value={value} setValue={setValue}/>
+      {/* <List items={["one", "two", "three"]} onClick={onListClick}/> */}
+      {/* <Box>{JSON.stringify(payload)}</Box> */}
+      {/* <Incrementor value={value} setValue={setValue}/> */}
       <Heading title="Todos"/>
       {todos.map((todo) => (
         <div key={todo.id}>
           {todo.text}
-          <button onClick={() => dispatch({
-            type: "DELETE",
-            id: todo.id,
-          })}>Remove</button>
+          <button onClick={() => removeTodo(todo.id)}>Remove</button>
         </div>))}
         <div>
           <input type="text" ref={newTodoRef}/>
