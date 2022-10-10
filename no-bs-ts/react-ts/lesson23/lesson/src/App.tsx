@@ -77,6 +77,26 @@ type ActionType =
 //   <Button onClick={() => setValue(value + 1)} title={`Add - ${value}`}/>
 // )
 
+function UL<T>({
+  items, 
+  render,
+  itemClick,
+}: React.DetailedHTMLProps<
+React.HTMLAttributes<
+HTMLUListElement>, HTMLUListElement
+> & {
+  items: T[];
+  render: (item: T) => React.ReactNode;
+  itemClick: (item: T) => void;
+}){
+  return(
+    <ul>
+      {items.map((item, i) => (
+        <li onClick={() => itemClick(item)} key={i}>{render(item)}</li>
+      ))}
+    </ul>
+  )
+}
 
 
 
@@ -134,15 +154,28 @@ function App() {
       <Box>
         Hello there
       </Box>
+
+
       {/* <List items={["one", "two", "three"]} onClick={onListClick}/> */}
       {/* <Box>{JSON.stringify(payload)}</Box> */}
       {/* <Incrementor value={value} setValue={setValue}/> */}
       <Heading title="Todos"/>
-      {todos.map((todo) => (
+      <UL 
+        itemClick={(item) => alert(item.id)}
+        items={todos}
+        render={(todo) => (
+          <>
+            {todo.text}
+            <button onClick={() => removeTodo(todo.id)}>Remove</button>
+          </>
+        )}
+      />
+
+      {/* {todos.map((todo) => (
         <div key={todo.id}>
           {todo.text}
           <button onClick={() => removeTodo(todo.id)}>Remove</button>
-        </div>))}
+        </div>))} */}
         <div>
           <input type="text" ref={newTodoRef}/>
           <Button onClick={onAddTodo}>AddTodo</Button>

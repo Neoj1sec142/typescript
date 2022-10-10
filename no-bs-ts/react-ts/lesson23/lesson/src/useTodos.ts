@@ -49,5 +49,5 @@ export function useTodos(initialTodos: Todo[]): {
         })
     }, [])
 
-    return { todos }
+    return { todos, removeTodo, addTodo }
 }
