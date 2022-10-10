@@ -61,7 +61,9 @@ export function useTodosManager(initialTodos: Todo[]): {
 }
 
 export const TodosProvider: React.FunctionComponent<{
-    initialTodos: Todo[];
+    initialTodos: Todo[],
 }> = ({ initialTodos,  children }) => (
-    <TodoContext.Provider value={useTodosManager(initialTodos)}>{children}</TodoContext.Provider>
+    <TodoContext.Provider value={useTodosManager(initialTodos)}>
+        {children}
+    </TodoContext.Provider>
 )
