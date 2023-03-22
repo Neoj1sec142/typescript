@@ -1,4 +1,5 @@
 require('dotenv').config()
+const cors = require('cors')
 const express = require('express')
 const {graphqlHTTP} = require('express-graphql')
 const schema = require('./schema/schema')
@@ -10,7 +11,7 @@ mongoose.connect(`mongodb+srv://${process.env.API_USER}:${process.env.API_PASS}@
 mongoose.connection.once('open', ()=> {
     console.log(`Connected to MongoDB as ${process.env.API_USER}`)
 })
-
+app.use(cors())
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true
