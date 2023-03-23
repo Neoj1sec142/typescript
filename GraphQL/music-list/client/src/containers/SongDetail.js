@@ -16,7 +16,7 @@ const SongDetail = ({get_query, data, loading, error}) => {
     setPageLoading(false)
   }
   useEffect(() => {if(pageLoading) fetchData()} ,[pageLoading])
-  if(data?.song){
+  if(data?.song && !loading){
     console.log(data, "Data")
     return (
       <div className='container-fluid'>
@@ -30,6 +30,7 @@ const SongDetail = ({get_query, data, loading, error}) => {
               {data.song.artist.songs?.length >= 1 ? (data.song.artist.songs.map((item, index) => (
               <li key={item.index}>{item.title}</li>))):null}
             </ul>
+            <a href='/songs' className='btn btn-danger w-100 mt-2 mb-2'>Back to Songs</a>
           </div>
         </div>
       </div>

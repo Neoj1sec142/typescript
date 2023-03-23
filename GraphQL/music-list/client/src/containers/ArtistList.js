@@ -21,6 +21,7 @@ const ArtistList = ({get_query, data, loading, error}) => {
             <ul className='list-group'>
               {data.artists?.length >= 1 ? data.artists.map((item, index) => (
               <li className='list-group-item' key={index}>
+                <a href={`/artist/${item.id}`}>
                 <p className='fs-3'>{item.name}</p>
                 <p>Albums: </p>
                 <ul>
@@ -32,6 +33,7 @@ const ArtistList = ({get_query, data, loading, error}) => {
                   {item.songs?.length >= 1 ? (item.songs.map((item, index) => (
                   <li key={index}>{item.title}</li>))):null}
                 </ul>
+                </a>
                 </li>)):null}
             </ul>
             <a href='/' className='btn btn-danger w-100 mt-2 mb-2'>Back to Home</a>

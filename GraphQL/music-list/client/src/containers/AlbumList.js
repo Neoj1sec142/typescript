@@ -20,13 +20,14 @@ const AlbumList = ({get_query, data, loading, error}) => {
             <ul className='list-group'>
               {data.albums?.length >= 1 ? data.albums.map((item, index) => (
               <li className='list-group-item' key={index}>
+                <a href={`/album/${item.id}`}>
                 <p className='fs-3'>{item.title}</p>
                 <p>Artist: {item.artist.name}</p>
                 <p>Songs: </p>
                 <ul>
                   {item.songs?.length >= 1 ? (item.songs.map((item, index) => (
                   <li key={index}>Song:{item.id} {item.title}</li>))): null}
-                </ul>
+                </ul></a>
                 </li>)):null}
             </ul>
             <a href='/' className='btn btn-danger w-100 mt-2 mb-2'>Back to Home</a>

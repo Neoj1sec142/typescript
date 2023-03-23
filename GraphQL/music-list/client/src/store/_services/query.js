@@ -57,10 +57,10 @@ query GetArtist($id: ID!) {
     albums {
       title
       id
-    }
-    songs {
-      title
-      id
+      songs {
+        title
+        id
+      }
     }
   }
 }
@@ -98,6 +98,10 @@ query GetAlbum($id: ID!){
     artist{
       name
       id
+      songs{
+        title
+        id
+      }
     }
   }
 }
