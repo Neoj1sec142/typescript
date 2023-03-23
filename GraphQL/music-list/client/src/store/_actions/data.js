@@ -1,5 +1,8 @@
 import { client } from '../_services/api'
-import {GET_QUERY_FAIL, GET_QUERY_SUCCESS} from '../types'
+import {
+    GET_QUERY_FAIL, GET_QUERY_SUCCESS,
+    CREATE_MUTATION_SUCCESS, CREATE_MUTATION_FAIL
+} from '../types'
 
 
 export const get_query = (query, variables) => async dispatch => {
@@ -26,6 +29,28 @@ export const get_query = (query, variables) => async dispatch => {
         dispatch({
             type: GET_QUERY_FAIL,
             payload: { error: err }
+        })
+    }
+}
+
+export const create_mutation = (mutation, variables) => async dispatch => {
+    try{
+        const { data } = await client.mutate({ mutation, variables })
+        if(data){
+            dispatch({
+                type: CREATE_MUTATION_SUCCESS,
+                payload: data
+            })
+        }else{
+            console.log(data, "Err 1")
+            dispatch({
+                type: CREATE_MUTATION_FAIL
+            })
+        }
+    }catch(err){
+        console.log(err, "Err 2")
+        dispatch({
+            type: CREATE_MUTATION_FAIL
         })
     }
 }
