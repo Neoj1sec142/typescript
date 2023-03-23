@@ -10,6 +10,7 @@ query GetSongs{
     }
     artist{
         name
+        id
     }
   }
 }

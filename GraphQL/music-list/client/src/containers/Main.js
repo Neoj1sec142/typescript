@@ -17,7 +17,7 @@ const Main = ({get_query, data, loading, error}) => {
         <div className='d-flex justify-content-center'>
           <div className='row w-75 shadow-sm p-3 mt-3 mb-3'>
             <ul className='list-group'>
-              {data.songs.length >= 1 ? data.songs.map((item, index) => (
+              {data.songs?.length >= 1 ? data.songs.map((item, index) => (
               <li className='list-group-item' key={index}>
                 <p className='fs-3'>{item.title}</p>
                 <p>Album: {item.album.title}</p>
