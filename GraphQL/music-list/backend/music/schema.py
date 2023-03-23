@@ -66,5 +66,69 @@ class Query(graphene.ObjectType):
         return Song.objects.get(id=id)
     def resolve_album(self, info, id):
         return Album.objects.get(id=id)
+
+class CreateSongMutation(graphene.Mutation):
+    class Arguments:
+        title = graphene.String(required=True)
+        artist_id = graphene.ID(required=True)
+        album_id = graphene.ID(required=True)
+        track_number = graphene.Int(required=True)
+        length = graphene.String(required=True)
+    song = graphene.Field(SongType)
     
-schema = graphene.Schema(query=Query)
+    def mutate(self, info, title,\
+        artist_id, album_id, track_number,\
+            length):
+        artist = Artist.objects.get(id=artist_id)
+        album = Album.objets.get(id=album_id)
+        song = Song.objects.create(
+            title=title,
+            artist=artist,
+            album=album,
+            track_number=track_number,
+            length=length)
+        return CreateSongMutation(song=song)
+
+class UpdateSongMutation(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+        title = graphene.String()
+        artist_id = graphene.ID()
+        album_id = graphene.ID()
+        track_number = graphene.Int()
+        length = graphene.String()
+    song = graphene.Field(SongType)
+    
+    def mutate(self, info, id, title=None,\
+        artist_id=None, album_id=None,\
+            track_number=None, length=None):
+        song = Song.objects.get(id=id)
+        if title:
+            song.title = title
+        if artist_id:
+            song.artist = Artist.objects.get(id=artist_id)
+        if album_id:
+            song.album = Album.objects.get(id=album_id)
+        if track_number:
+            song.track_number = track_number
+        if length:
+            song.length = length
+        song.save()
+        return UpdateSongMutation(song=song)
+
+class DeleteSongMutation(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+    success = graphene.Boolean()
+    
+    def mutate(self, info, id):
+        song = Song.objects.get(id=id)
+        song.delete()
+        return DeleteSongMutation(success=True)
+
+class Mutation(graphene.ObjectType):
+    create_song = CreateSongMutation.Field()
+    update_song = UpdateSongMutation.Field()
+    delete_song = DeleteSongMutation.Field() 
+
+schema = graphene.Schema(query=Query, mutation=Mutation)
