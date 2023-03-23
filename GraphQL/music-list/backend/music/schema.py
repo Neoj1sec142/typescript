@@ -47,9 +47,9 @@ class Query(graphene.ObjectType):
     artists = graphene.List(ArtistType)
     albums = graphene.List(AlbumType)
     songs = graphene.List(SongType)
-    song = graphene.Field(SongType, id=graphene.Int())
-    album = graphene.Field(AlbumType, id=graphene.Int())
-    artist = graphene.Field(ArtistType, id=graphene.Int())
+    song = graphene.Field(SongType, id=graphene.ID())
+    album = graphene.Field(AlbumType, id=graphene.ID())
+    artist = graphene.Field(ArtistType, id=graphene.ID())
     def introspect(context):
         return schema.introspect()
     def resolve_artists(self, info):
@@ -131,4 +131,4 @@ class Mutation(graphene.ObjectType):
     update_song = UpdateSongMutation.Field()
     delete_song = DeleteSongMutation.Field() 
 
-schema = graphene.Schema(query=Query, mutation=Mutation)
+schema = graphene.Schema(query=Query, mutation=Mutation, types=[graphene.ID])
