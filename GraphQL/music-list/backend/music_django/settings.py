@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    "graphene_django",
     'corsheaders',
     'music'
 ]
@@ -79,7 +80,9 @@ REST_FRAMEWORK = {
         
     ]
 }
-
+GRAPHENE = {
+    "SCHEMA": "music.schema.schema"
+}
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
