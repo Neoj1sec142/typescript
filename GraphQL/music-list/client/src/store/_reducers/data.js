@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import {
     GET_QUERY_SUCCESS, GET_QUERY_FAIL,
-    CREATE_MUTATION_SUCCESS, CREATE_MUTATION_FAIL
+    CREATE_MUTATION_SUCCESS, CREATE_MUTATION_FAIL,
+    DELETE_MUTATION_SUCCESS, DELETE_MUTATION_FAIL
 } from '../types'
 
 const initialState = {
@@ -15,8 +16,10 @@ export default function(state = initialState, action){
     switch(type){
         case GET_QUERY_SUCCESS:
         case CREATE_MUTATION_SUCCESS:
+        case DELETE_MUTATION_SUCCESS:
         case GET_QUERY_FAIL:
         case CREATE_MUTATION_FAIL:
+        case DELETE_MUTATION_FAIL:
             return{
                 ...state,
                 data: payload.data || null,

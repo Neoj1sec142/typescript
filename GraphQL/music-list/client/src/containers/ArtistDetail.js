@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { get_query } from '../store/_actions/data'
+import { useNavigate, useParams } from 'react-router-dom'
+import { get_query, delete_mutation } from '../store/_actions/data'
 import { getArtistDetail } from '../store/_services/query'
+import { DeleteArtist } from '../store/_services/mutation'
 import { connect } from 'react-redux'
 
-const ArtistDetail = ({get_query, data, loading, error}) => {
+const ArtistDetail = ({get_query, delete_mutation, data, loading, error}) => {
+  const navigate = useNavigate()
   const {id} = useParams()
   const [pageLoading, setpageLoading] = useState(true)
   const fetchData = () => {
-    console.log(id, "ID")
+    
     const variables = {id: id}
     const query = getArtistDetail
     get_query(query, variables)
     setpageLoading(false)
   }
+  const removeArtist = e => {
+    e.preventDefault()
+    const variables = {id: id}
+    const query = DeleteArtist
+    delete_mutation(query, variables)
+    navigate('/')
+  }
+
   useEffect(() => {if(pageLoading) fetchData()},[])
 
   if(data?.artist && !loading){
@@ -22,7 +32,8 @@ const ArtistDetail = ({get_query, data, loading, error}) => {
         <div className='d-flex justify-content-center'>
           <div className='row w-75 mt-3 mb-3 p-3 shadow-sm'>
             <p className='fs-3 text-center mt-2 mb-1 p-1'>{data.artist.name}
-            <a href='/new-album' className='btn btn-primary w-25 float-end'>Add Album</a>
+              <a href='/new-album' className='btn btn-primary w-25 float-end'>Add Album</a>
+              <button onClick={e=>removeArtist(e)} className='btn btn-danger w-25 me-1 float-end'>Delete Artist</button>
             </p>
             <p className='fs-4'>Albums:</p>
             <ul className='list-group mt-1 mb-1'>
@@ -49,4 +60,4 @@ const mapStateToProps = state => ({
   error: state.data.error
 })
 
-export default connect(mapStateToProps, {get_query})(ArtistDetail);
+export default connect(mapStateToProps, {get_query, delete_mutation})(ArtistDetail);

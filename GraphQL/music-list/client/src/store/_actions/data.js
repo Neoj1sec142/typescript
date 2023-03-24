@@ -1,7 +1,8 @@
 import { client } from '../_services/api'
 import {
     GET_QUERY_FAIL, GET_QUERY_SUCCESS,
-    CREATE_MUTATION_SUCCESS, CREATE_MUTATION_FAIL
+    CREATE_MUTATION_SUCCESS, CREATE_MUTATION_FAIL,
+    DELETE_MUTATION_SUCCESS, DELETE_MUTATION_FAIL
 } from '../types'
 
 
@@ -45,6 +46,22 @@ export const create_mutation = (mutation, variables) => async dispatch => {
         console.log(err.message, "Err 2")
         dispatch({
             type: CREATE_MUTATION_FAIL
+        })
+    }
+}
+
+export const delete_mutation = (mutation, variables) => async dispatch => {
+    try{
+        const {data} = await client.mutate({ mutation, variables })
+        console.log(data, "data")
+        dispatch({
+            type: DELETE_MUTATION_SUCCESS,
+            payload: data
+        })
+    }catch(err){
+        console.log(err.message, "Err 2")
+        dispatch({
+            type: DELETE_MUTATION_FAIL
         })
     }
 }

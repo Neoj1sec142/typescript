@@ -48,3 +48,27 @@ mutation CreateSong($title: String!, $artistId: ID!, $albumId: ID!, $trackNumber
     }
 }
 `
+
+export const DeleteArtist = gql`
+mutation DeleteArtist($id: ID!){
+    deleteArtist(id: $id){
+        success
+    }
+}
+`
+
+export const DeleteAlbum = gql`
+mutation DeleteAlbum($id: ID!){
+    deleteAlbum(id: $id){
+        success
+    }
+}
+`
+
+export const DeleteSong = gql`
+mutation DeleteSong($id: ID!){
+    deleteSong(id: $id){
+        success
+    }
+}
+`
