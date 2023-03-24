@@ -10,6 +10,7 @@ import ArtistDetail from './containers/ArtistDetail'
 import SongDetail from './containers/SongDetail'
 import AlbumDetail from './containers/AlbumDetail'
 import ArtistForm from './components/ArtistForm';
+import AlbumForm from './components/AlbumForm';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/artist/:id" element={<ArtistDetail />} />
         <Route path="/albums" element={<AlbumList />} />
         <Route path="/album/:id" element={<AlbumDetail />} />
+        <Route path="/new-album" element={<AlbumForm />} />
         <Route path="/songs" element={<SongList />} />
         <Route path="/song/:id" element={<SongDetail />} />
       </Routes>

@@ -70,22 +70,22 @@ class Query(graphene.ObjectType):
 class CreateSongMutation(graphene.Mutation):
     class Arguments:
         title = graphene.String(required=True)
-        artist_id = graphene.ID(required=True)
-        album_id = graphene.ID(required=True)
-        track_number = graphene.Int(required=True)
+        artistId = graphene.ID(required=True)
+        albumId = graphene.ID(required=True)
+        trackNumber = graphene.Int(required=True)
         length = graphene.String(required=True)
     song = graphene.Field(SongType)
     
     def mutate(self, info, title,\
-        artist_id, album_id, track_number,\
+        artistId, albumId, trackNumber,\
             length):
-        artist = Artist.objects.get(id=artist_id)
-        album = Album.objets.get(id=album_id)
+        artist = Artist.objects.get(id=artistId)
+        album = Album.objets.get(id=albumId)
         song = Song.objects.create(
             title=title,
             artist=artist,
             album=album,
-            track_number=track_number,
+            track_number=trackNumber,
             length=length)
         return CreateSongMutation(song=song)
 
@@ -126,9 +126,61 @@ class DeleteSongMutation(graphene.Mutation):
         song.delete()
         return DeleteSongMutation(success=True)
 
+class CreateArtistMutation(graphene.Mutation):
+    class Arguments:
+        name = graphene.String()
+        description = graphene.String()
+    artist = graphene.Field(ArtistType)
+    
+    def mutate(self, info, name=None, description=None):
+        
+        artist = Artist.objects.create(
+            name=name,
+            description=description)
+        return CreateArtistMutation(artist=artist)
+    
+class DeleteArtistMutation(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+    success = graphene.Boolean()
+    
+    def mutate(self, info, id):
+        artist = Artist.obejcts.get(id=id)
+        artist.delete()
+        return DeleteArtistMutation(success=True)
+
+class CreateAlbumMutation(graphene.Mutation):
+    class Arguments:
+        title = graphene.String()
+        artistId = graphene.ID()
+        releaseDate = graphene.DateTime()
+    album = graphene.Field(AlbumType)
+    def mutate(self, info, title, artistId, releaseDate):
+        artist = Artist.objects.get(id=artistId)
+        album = Album.objects.create(
+            title=title,
+            artist=artist,
+            release_date=releaseDate
+        )
+        return CreateAlbumMutation(album=album)
+
+class DeleteAlbumMutation(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+    success = graphene.Boolean()
+    
+    def mutate(self, info, id):
+        album = Album.obejcts.get(id=id)
+        album.delete()
+        return DeleteAlbumMutation(success=True)
+
 class Mutation(graphene.ObjectType):
     create_song = CreateSongMutation.Field()
     update_song = UpdateSongMutation.Field()
     delete_song = DeleteSongMutation.Field() 
+    create_artist = CreateArtistMutation.Field()
+    delete_artist = DeleteArtistMutation.Field()
+    create_album = CreateAlbumMutation.Field()
+    delete_album = DeleteAlbumMutation.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation, types=[graphene.ID])

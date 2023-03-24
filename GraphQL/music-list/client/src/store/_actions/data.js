@@ -35,20 +35,14 @@ export const get_query = (query, variables) => async dispatch => {
 
 export const create_mutation = (mutation, variables) => async dispatch => {
     try{
-        const { data } = await client.mutate({ mutation, variables })
-        if(data){
-            dispatch({
-                type: CREATE_MUTATION_SUCCESS,
-                payload: data
-            })
-        }else{
-            console.log(data, "Err 1")
-            dispatch({
-                type: CREATE_MUTATION_FAIL
-            })
-        }
+        const {data} = await client.mutate({ mutation, variables })
+        console.log(data, "data")
+        dispatch({
+            type: CREATE_MUTATION_SUCCESS,
+            payload: data
+        })
     }catch(err){
-        console.log(err, "Err 2")
+        console.log(err.message, "Err 2")
         dispatch({
             type: CREATE_MUTATION_FAIL
         })

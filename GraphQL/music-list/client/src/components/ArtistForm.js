@@ -19,7 +19,12 @@ const ArtistForm = ({create_mutation}) => {
       description: description
     }
     create_mutation(CreateArtist, variables)
-    // navigate('/artists')
+    if(window.confirm("Would you like to add albums to this artist?")){
+      navigate('/new-album')
+    }else{
+      navigate('/artists')
+    }
+    
   }
 
   return (

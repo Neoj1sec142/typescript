@@ -106,3 +106,12 @@ query GetAlbum($id: ID!){
   }
 }
 `
+
+export const getAlbumForm = gql`
+query GetArtistsNames{
+  artists{
+    name
+    id
+  }
+}
+`

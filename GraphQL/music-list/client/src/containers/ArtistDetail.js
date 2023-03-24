@@ -21,7 +21,9 @@ const ArtistDetail = ({get_query, data, loading, error}) => {
       <div className='container-fluid'>
         <div className='d-flex justify-content-center'>
           <div className='row w-75 mt-3 mb-3 p-3 shadow-sm'>
-            <p className='fs-3 text-center mt-2 mb-1 p-1'>{data.artist.name}</p>
+            <p className='fs-3 text-center mt-2 mb-1 p-1'>{data.artist.name}
+            <a href='/new-album' className='btn btn-primary w-25 float-end'>Add Album</a>
+            </p>
             <p className='fs-4'>Albums:</p>
             <ul className='list-group mt-1 mb-1'>
               {data.artist.albums?.length >= 1 ? (data.artist.albums.map((item, index) => (

@@ -13,8 +13,8 @@ mutation CreateArtist($name: String!, $description: String!){
 }
 `
 export const CreateAlbum = gql`
-mutation CreateAlbum($title: String!, $artist_id: ID!, $release_date: String!){
-    createAlbum(title: $title, artist_id: $artist_id, release_date: $release_date){
+mutation CreateAlbum($title: String!, $artistId: ID!, $releaseDate: DateTime!){
+    createAlbum(title: $title, artistId: $artistId, releaseDate: $releaseDate){
         album{
             title
             id
@@ -29,14 +29,17 @@ mutation CreateAlbum($title: String!, $artist_id: ID!, $release_date: String!){
 
 
 export const CreateSong = gql`
-mutation CreateSong($title: String!, $artist_id: ID!, $album_id: ID!, $track_number: Int!, $length: String!) {
-    createSong(title: $title, artist_id: $artist_id, album_id: $album_id, track_number: $track_number, length: $length) {
+mutation CreateSong($title: String!, $artistId: ID!, $albumId: ID!, $trackNumber: Int!, $length: String!) {
+    createSong(title: $title, artistId: $artistId, albumId: $albumId, trackNumber: $trackNumber, length: $length) {
         song {
         id
         title
         artist {
             id
             name
+            albums{
+                title
+            }
         }
         album {
             id
