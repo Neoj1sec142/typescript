@@ -9,6 +9,7 @@ import AlbumList from './containers/AlbumList'
 import ArtistDetail from './containers/ArtistDetail'
 import SongDetail from './containers/SongDetail'
 import AlbumDetail from './containers/AlbumDetail'
+import ArtistForm from './components/ArtistForm';
 
 const App = () => {
   return (
@@ -16,10 +17,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/artists" element={<ArtistList />} />
-        <Route path="/albums" element={<AlbumList />} />
-        <Route path="/songs" element={<SongList />} />
+        <Route path="/new-artist" element={<ArtistForm />} />
         <Route path="/artist/:id" element={<ArtistDetail />} />
+        <Route path="/albums" element={<AlbumList />} />
         <Route path="/album/:id" element={<AlbumDetail />} />
+        <Route path="/songs" element={<SongList />} />
         <Route path="/song/:id" element={<SongDetail />} />
       </Routes>
     </ApolloProvider>

@@ -17,7 +17,9 @@ const ArtistList = ({get_query, data, loading, error}) => {
       <div className='container-fluid'>
         <div className='d-flex justify-content-center'>
           <div className='row w-75 shadow-sm p-3 mt-3 mb-3'>
-            <p className='fs-3 text-center p-2'>Artist List</p>
+            <p className='fs-3 text-center p-2'>Artist List
+              <a className='btn btn-primary float-end w-25' href='/new-artist'>Add New Artist</a>
+            </p>
             <ul className='list-group'>
               {data.artists?.length >= 1 ? data.artists.map((item, index) => (
               <li className='list-group-item' key={index}>
