@@ -1,6 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from .models import Artist, Album, Song
+from datetime import datetime
 
 class SongType(DjangoObjectType):
     album = graphene.Field('music.schema.AlbumType')
@@ -74,20 +75,26 @@ class CreateSongMutation(graphene.Mutation):
         albumId = graphene.ID(required=True)
         trackNumber = graphene.Int(required=True)
         length = graphene.String(required=True)
+        
     song = graphene.Field(SongType)
     
-    def mutate(self, info, title,\
-        artistId, albumId, trackNumber,\
-            length):
-        artist = Artist.objects.get(id=artistId)
-        album = Album.objets.get(id=albumId)
-        song = Song.objects.create(
-            title=title,
-            artist=artist,
-            album=album,
-            track_number=trackNumber,
-            length=length)
-        return CreateSongMutation(song=song)
+    def mutate(self, info, title, artistId, albumId, trackNumber, length):
+        try:
+            artist = Artist.objects.get(id=artistId)
+            album = Album.objects.get(id=albumId)
+            song = Song.objects.create(
+                title=title,
+                artist=artist,
+                album=album,
+                track_number=trackNumber,
+                length=length)
+            return CreateSongMutation(song=song)
+        except Exception as e:
+            print('-'*25)
+            print("--------Error-------")
+            print(f"Error: {e}")
+            print('-'*25)
+            return CreateSongMutation(song=None)
 
 class UpdateSongMutation(graphene.Mutation):
     class Arguments:

@@ -115,3 +115,19 @@ query GetArtistsNames{
   }
 }
 `
+
+export const getSongForm = gql`
+query GetArtistAlbums{
+  artists{
+    name
+    id
+    albums{
+      title
+      id
+      songs{
+        title
+      }
+    }
+  }
+}
+`

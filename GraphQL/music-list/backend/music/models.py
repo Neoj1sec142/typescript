@@ -21,7 +21,7 @@ class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE, blank=True, null=True)
     album = models.ForeignKey(Album, on_delete=models.CASCADE, blank=True, null=True)
     track_number = models.IntegerField()
-    length = models.DurationField()
+    length = models.CharField(max_length=50)
 
     def __str__(self):
         return self.title

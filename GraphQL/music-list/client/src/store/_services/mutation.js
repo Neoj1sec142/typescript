@@ -37,9 +37,6 @@ mutation CreateSong($title: String!, $artistId: ID!, $albumId: ID!, $trackNumber
         artist {
             id
             name
-            albums{
-                title
-            }
         }
         album {
             id

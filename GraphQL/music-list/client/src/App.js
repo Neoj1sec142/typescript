@@ -11,6 +11,7 @@ import SongDetail from './containers/SongDetail'
 import AlbumDetail from './containers/AlbumDetail'
 import ArtistForm from './components/ArtistForm';
 import AlbumForm from './components/AlbumForm';
+import SongForm from './components/SongForm';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/new-album" element={<AlbumForm />} />
         <Route path="/songs" element={<SongList />} />
         <Route path="/song/:id" element={<SongDetail />} />
+        <Route path="/new-song" element={<SongForm />} />
       </Routes>
     </ApolloProvider>
   )
