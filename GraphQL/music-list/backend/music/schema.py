@@ -152,7 +152,7 @@ class DeleteArtistMutation(graphene.Mutation):
     success = graphene.Boolean()
     
     def mutate(self, info, id):
-        artist = Artist.obejcts.get(id=id)
+        artist = Artist.objects.get(id=id)
         artist.delete()
         return DeleteArtistMutation(success=True)
 
@@ -177,7 +177,7 @@ class DeleteAlbumMutation(graphene.Mutation):
     success = graphene.Boolean()
     
     def mutate(self, info, id):
-        album = Album.obejcts.get(id=id)
+        album = Album.objects.get(id=id)
         album.delete()
         return DeleteAlbumMutation(success=True)
 
